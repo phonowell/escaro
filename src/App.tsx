@@ -26,8 +26,12 @@ function useTheme() {
     try { return localStorage.getItem('parallax-theme') || 'dark'; } catch { return 'dark'; }
   });
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
+    const root = document.documentElement;
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
     try { localStorage.setItem('parallax-theme', theme); } catch { /* ignore */ }
+    const bg = getComputedStyle(root).getPropertyValue('--bg').trim();
+    if (bg) document.querySelector('meta[name="theme-color"]')?.setAttribute('content', bg);
   }, [theme]);
   return [theme, setTheme] as const;
 }

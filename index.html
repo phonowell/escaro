@@ -3,7 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#08070c" />
+    <script>
+      // Apply the stored theme before first paint so the initial background
+      // and browser chrome match it — no dark flash for a stored light theme.
+      (function () {
+        var theme = 'dark';
+        try { theme = localStorage.getItem('parallax-theme') || 'dark'; } catch (e) { /* ignore */ }
+        var root = document.documentElement;
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', theme === 'dark' ? '#08070c' : '#fcfcfc');
+      })();
+    </script>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta
       name="description"

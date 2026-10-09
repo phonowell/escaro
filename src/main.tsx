@@ -9,10 +9,6 @@ import './styles/bits.css';
 import './styles/bits-interactive.css';
 import './styles/pages.css';
 
-try {
-  document.documentElement.dataset.theme = localStorage.getItem('parallax-theme') || 'dark';
-} catch { /* default theme when storage is unavailable */ }
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode><BrowserRouter><App /></BrowserRouter></StrictMode>,
 );
